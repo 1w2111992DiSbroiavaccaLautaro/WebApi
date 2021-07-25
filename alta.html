@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- <script type="text/javascript " src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js "></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+    <title>Alta</title>
+    <script>
+        $("#formulario").validate({
+            submitHandler: function(form) {
+                $(form).ajaxSubmit();
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="alta.html">Alta Persona<span
+                        class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="modificar.html">Modificar Persona</a>
+                <a class="nav-item nav-link" href="eliminar.html">Eliminar Persona</a>
+                <a class="nav-item nav-link" href="listado.html">Listado Persona</a>
+                <a class="nav-item nav-link" id="btnCerrarSesion" href="#">Cerrar Sesion</a>
+            </div>
+        </div>
+    </nav>
+
+    <form class="container" id="formulario">
+        <br><br><br>
+        <div class="form-row">
+
+            <div class="form-group col-md-6">
+                <label for="inputEmail">Email</label>
+                <input type="text" name="email" class="form-control" id="txtEmail" placeholder="Email">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputPassword">Password</label>
+                <input type="password" class="form-control" id="txtPassword" placeholder="Password">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputNombre">Nombre</label>
+                <input type="text" class="form-control" id="txtNombre" placeholder="Nombre">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputApellido">Apellido</label>
+                <input type="text" class="form-control" id="txtApellido" placeholder="Apellido">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Barrios</label>
+                <select id="txtBarrio" name="barrio" class="form-control">
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">Direccion</label>
+                <input type="text" class="form-control" id="txtDireccion" placeholder="Direccion">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Sexo</label>
+                <select id="txtSexo" name="sexo" class="form-control">
+                </select>
+            </div>
+
+        </div>
+        <div class="form-group">
+
+        </div>
+        <button type="button" id="btnAgregar" class="btn btn-primary">Ingresar</button>
+    </form>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(function() {
+                $("#formulario").validate({
+                    rules: {
+                        email: {
+                            required: true,
+                            digits: true
+                        },
+                        destino: {
+                            required: true
+                        },
+                        vuelos: {
+                            required: true
+                        },
+                        fecha: {
+                            required: true
+                        },
+                        costo: {
+                            required: true,
+                            digits: true
+                        },
+                        origen: {
+                            required: true
+                        },
+                        horaPartida: {
+                            required: true
+                        },
+                        clase: {
+                            required: true
+                        },
+
+                    },
+                    messages: {
+                        email: "Ingrese un numero de vuelo",
+                        destino: "Ingrese el destino",
+                        vuelos: "Seleccione un vuelo",
+                        costo: "Ingrese el costo del vuelo",
+                        clase: "Seleccione una clase",
+                        fecha: "Seleccione una fecha",
+                        origen: "Ingrese un origen",
+                        horaPartida: "Ingrese una hora de partida"
+                    },
+
+
+                });
+            });
+            $.ajax({
+                url: "https://localhost:5001/Usuario/ObtenerSexo",
+                type: "GET",
+                success: function(result) {
+                    if (result.ok) {
+                        resultadoS = result.return;
+                        cargarCombo(resultadoS);
+                        console.log(resultadoS);
+                    } else {
+                        swal.fire(result.error);
+                    }
+                },
+                error: function(error) {
+                    swal.fire("Problemas con acceder a los sexos");
+                }
+
+            })
+
+            $.ajax({
+                url: "https://localhost:5001/Usuario/ObtenerBarrios",
+                type: "GET",
+                success: function(result) {
+                    if (result.ok) {
+                        resultadoS = result.return;
+                        cargarComboBarrios(resultadoS);
+                        console.log(resultadoS);
+                    } else {
+                        swal.fire(result.error);
+                    }
+                },
+                error: function(error) {
+                    swal.fire("Problemas con acceder a los Barrios");
+                }
+
+            })
+
+
+        })
+
+        function cargarCombo(datos) {
+            var html = "<option value=''>Selecione</option>";
+            $("#txtSexo").append(html);
+            select = document.getElementById("txtSexo");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idSexo;
+                option.text = datos[i].sexos;
+                select.add(option);
+                //console.log(datos[i].sexo1);
+            }
+            //console.log(select.value);
+        }
+
+        function cargarComboBarrios(datos) {
+            var html = "<option value=''>Selecione</option>";
+            $("#txtBarrio").append(html);
+            select = document.getElementById("txtBarrio");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idBarrio;
+                option.text = datos[i].barrios;
+                select.add(option);
+                //console.log(datos[i].sexo1);
+            }
+            //console.log(select.value);
+        }
+
+        $("#btnAgregar").click(function() {
+            let email = $("#txtEmail").val();
+            let password = $("#txtPassword").val();
+            let nombre = $("#txtNombre").val();
+            let apellido = $("#txtApellido").val();
+            let direccion = $("#txtDireccion").val();
+            let sexo = $("#txtSexo").val();
+            let barrios = $("#txtBarrio").val();
+
+            agregarAlumno(email, password, nombre, apellido, barrios, direccion, sexo);
+        })
+
+        function agregarAlumno(email, password, nombre, apellido, barrios, direccion, sexo) {
+            comando = {
+                "email": email,
+                "password": password,
+                "nombre": nombre,
+                "apellido": apellido,
+                "idBarrio": parseInt(barrios),
+                "direccion": direccion,
+                "idSexo": parseInt(sexo)
+            }
+
+
+            $.ajax({
+                url: "https://localhost:5001/Usuario/CrearUsuario",
+                type: "POST",
+                dataType: 'JSON',
+                contentType: 'application/json',
+                data: JSON.stringify(comando),
+                success: function(result) {
+                    if (result.ok) {
+                        swal.fire("ALta existosa");
+                    } else {
+                        alert(result.error);
+                    }
+                },
+                error: function(error) {
+                    swal.fire("Problemas en el servidor");
+                }
+            })
+
+        }
+
+        $("#btnCerrarSesion").click(function() {
+            localStorage.removeItem('emailPropietario');
+            localStorage.removeItem('passwordPropietario');
+            window.location.replace("./index.html");
+        });
+    </script>
+
+
+</body>
+
+</html>

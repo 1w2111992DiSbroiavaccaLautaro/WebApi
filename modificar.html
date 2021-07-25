@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Modificar</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="alta.html">Alta Persona<span
+                        class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="modificar.html">Modificar Persona</a>
+                <a class="nav-item nav-link" href="eliminar.html">Eliminar Persona</a>
+            </div>
+        </div>
+    </nav>
+
+    <form class="container">
+        <br><br><br>
+        <div class="form-row">
+
+
+
+            <div class="form-group col-md-4">
+                <label>Id</label>
+                <select name="id" id="txtId"></select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputEmail">Email</label>
+                <input type="text" class="form-control" id="txtEmail" placeholder="Email">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputPassword">Password</label>
+                <input type="text" class="form-control" id="txtPassword" placeholder="Password">
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="inputNombre">Nombre</label>
+                <input type="text" class="form-control" id="txtNombre" placeholder="Nombre">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputApellido">Apellido</label>
+                <input type="text" class="form-control" id="txtApellido" placeholder="Apellido">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Barrios</label>
+                <select id="txtBarrio" name="barrio" class="form-control" disabled>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">Direccion</label>
+                <input type="text" class="form-control" id="txtDireccion" placeholder="Direccion" disabled>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Sexo</label>
+                <select id="txtSexo" name="sexo" class="form-control" disabled>
+                </select>
+            </div>
+
+        </div>
+        <div class="form-group">
+
+        </div>
+        <button type="button" id="btnUpdate" class="btn btn-primary">Update</button>
+    </form>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: "https://localhost:5001/Usuario/ObtenerUsuario",
+                type: "GET",
+                success: function(result) {
+                    if (result.ok) {
+                        resultadoS = result.return;
+                        cargarCombo(resultadoS);
+                        console.log(resultadoS);
+                    } else {
+                        swal.fire(result.error);
+                    }
+                },
+                error: function(error) {
+                    swal.fire("Problemas con acceder a los usuarios");
+                }
+
+            })
+
+            $.ajax({
+                url: "https://localhost:5001/Usuario/ObtenerSexo",
+                type: "GET",
+                success: function(result) {
+                    if (result.ok) {
+                        resultadoS = result.return;
+                        cargarComboSexo(resultadoS);
+                        console.log(resultadoS);
+                    } else {
+                        swal.fire(result.error);
+                    }
+                },
+                error: function(error) {
+                    swal.fire("Problemas con acceder a los sexos");
+                }
+
+            })
+
+            $.ajax({
+                url: "https://localhost:5001/Usuario/ObtenerBarrios",
+                type: "GET",
+                success: function(result) {
+                    if (result.ok) {
+                        resultadoS = result.return;
+                        cargarComboBarrios(resultadoS);
+                        console.log(resultadoS);
+                    } else {
+                        swal.fire(result.error);
+                    }
+                },
+                error: function(error) {
+                    swal.fire("Problemas con acceder a los Barrios");
+                }
+
+            })
+        })
+
+
+        $("#txtId").change(function() {
+            let id = $("#txtId").val();
+            $.ajax({
+                url: "https://localhost:5001/Usuario/ObtenerUsuarioPorId/" + id,
+                type: "GET",
+                dataType: 'JSON',
+                contentType: 'application/json',
+                data: JSON.stringify(id),
+                success: function(result) {
+                    if (result.ok) {
+                        //alert("Datos traidos con exito");
+                        $("#txtEmail").val(result.return.email);
+                        $("#txtPassword").val(result.return.password);
+                        $("#txtNombre").val(result.return.nombre);
+                        $("#txtApellido").val(result.return.apellido);
+                        $("#txtDireccion").val(result.return.direccion);
+                        $("#txtSexo").val(result.return.idSexo);
+                        $("#txtBarrio").val(result.return.idBarrio);
+
+                    } else {
+                        swal.fire(result.error);
+                    }
+                },
+                error: function(error) {
+                    swal.fire("Problemas en el servidor");
+                },
+            })
+        })
+
+        $("#btnUpdate").click(function() {
+            let id = $("#txtId").val();
+            let email = $("#txtEmail").val();
+            let password = $("#txtPassword").val();
+            let nombre = $("#txtNombre").val();
+            let apellido = $("#txtApellido").val();
+
+            if (email === "" || password === "" || nombre === "" || apellido === "") {
+                swal.fire("Ingrese los datos requeridos");
+            } else {
+                updateAlumno(id, email, password, nombre, apellido);
+            }
+        });
+
+        function updateAlumno(id, email, password, nombre, apellido) {
+            comando = {
+                "idUsuario": parseInt(id),
+                "email": email,
+                "password": password,
+                "nombre": nombre,
+                "apellido": apellido
+            };
+
+            $.ajax({
+                url: "https://localhost:5001/Usuario/UpdateUsuario",
+                type: "PUT",
+                dataType: 'JSON',
+                contentType: 'application/json',
+                data: JSON.stringify(comando),
+                success: function(result) {
+                    if (result.ok) {
+                        swal.fire("Actualizacion exitosa");
+                        // reload pagina
+                        setTimeout(function() {
+                            location.reload();
+                        }, 3000);
+
+                    } else {
+                        swal.fire("Problema Server");
+                    }
+                },
+                error: function(error) {
+                    swal.fire("Problemas en el servidor");
+                },
+            })
+
+        }
+
+
+
+        function cargarCombo(datos) {
+            var html = "<option value=''>Selecione</option>";
+            $("#txtId").append(html);
+            select = document.getElementById("txtId");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idUsuario;
+                option.text = datos[i].nombre + ", " + datos[i].apellido;
+                select.add(option);
+                //console.log(datos[i].sexo1);
+            }
+            //console.log(select.value);
+        }
+
+        function cargarComboSexo(datos) {
+            var html = "<option value=''>Selecione</option>";
+            $("#txtSexo").append(html);
+            select = document.getElementById("txtSexo");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idSexo;
+                option.text = datos[i].sexos;
+                select.add(option);
+                //console.log(datos[i].sexo1);
+            }
+            //console.log(select.value);
+        }
+
+        function cargarComboBarrios(datos) {
+            var html = "<option value=''>Selecione</option>";
+            $("#txtBarrio").append(html);
+            select = document.getElementById("txtBarrio");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idBarrio;
+                option.text = datos[i].barrios;
+                select.add(option);
+                //console.log(datos[i].sexo1);
+            }
+            //console.log(select.value);
+        }
+    </script>
+
+</body>
+
+</html>

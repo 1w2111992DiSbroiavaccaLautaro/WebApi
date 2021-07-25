@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Login</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="alta.html">Alta Persona<span
+                        class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="modificar.html">Modificar Persona</a>
+                <a class="nav-item nav-link" href="eliminar.html">Eliminar Persona</a>
+                <a class="nav-item nav-link" href="listado.html">Listado Persona</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <table class="table" id="tablaPersonas">
+            <thead>
+                <tr>
+                    <th data-field="id" scope="col">#</th>
+                    <th data-field="emial" scope="col">Email</th>
+                    <th data-field="password" scope="col">Password</th>
+                    <th data-field="nombre" scope="col">Nombre</th>
+                    <th data-field="apellido" scope="col">Apellido</th>
+
+                </tr>
+            </thead>
+            <tbody id="cuerpoTabla">
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function() {
+            var usuario = localStorage.getItem("emailPropietario");
+            if (usuario === "" || usuario == undefined) {
+                swal.fire("Ingrese al sistema primero");
+            } else {
+                $.ajax({
+                    url: "https://localhost:5001/Usuario/ObtenerUsuario",
+                    type: "GET",
+
+                    success: function(result) {
+                        if (result.ok) {
+                            crearTabla(result.return);
+                        } else {
+                            swal.fire(result.error);
+                        }
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+
+            }
+        });
+
+        function crearTabla(datos) {
+
+            for (var i = 0; i < datos.length; i++) {
+                var html = "<tr>";
+                html += "<td>" + datos[i].idUsuario + "</td>";
+                html += "<td>" + datos[i].email + "</td>";
+                html += "<td>" + datos[i].password + "</td>";
+                html += "<td>" + datos[i].nombre + "</td>";
+                html += "<td>" + datos[i].apellido + "</td>";
+
+
+                html += "</tr>";
+                $("#cuerpoTabla").append(html);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
